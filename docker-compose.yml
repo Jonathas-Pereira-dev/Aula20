@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -12,10 +11,34 @@ services:
     networks:
       - mynetwork
 
+  backend:
+    build: 
+      context: ./Backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./Backend:/app
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres/mydatabase
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+
+  frontend:
+    build: 
+      context: ./Frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./Frontend:/app
+    ports:
+      - "8501:8501"
+    networks:
+      - mynetwork
+
 networks:
   mynetwork:
 
-volumes: #Criar PATH
+volumes:
   postgres_data:
-
-
