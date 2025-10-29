@@ -18,6 +18,14 @@ class ProductResponse(ProductBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+class ProductUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[PositiveFloat] = None
+    categoria: Optional[str] = None
+    email_fornecedor: Optional[EmailStr] = None
+
 
 
